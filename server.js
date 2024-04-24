@@ -56,7 +56,7 @@ app.put('/api/actualizar-ofrecimiento/:id', async (req, res) => {
   try {
     const ofrecimientoId = req.params.id
     // Ups parece que la línea de abajo esta comentada y es muy importante
-    //const { nombre, descripcion, socialUrl } = req.body
+    const { nombre, descripcion, socialUrl } = req.body
 
     const ofrecimientoRef = db.collection('ofrecimientos-team-b-abril-2024').where('id', '==', ofrecimientoId);
     const ofrecimientoSnapshot = await ofrecimientoRef.get();
