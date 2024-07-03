@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const { v4: uuidv4 } = require('uuid');
 
+dotenv.config();
+
 // Configurar Firebase
-const serviceAccount = require('./firebaseConfig.json'); // archivo JSON de credenciales de Firebase
+const serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -31,7 +34,7 @@ app.post('/api/crear-ofrecimiento', async (req, res) => {
       descripcion: req.body.descripcion,
       socialUrl: req.body.socialUrl
     };
-    await db.collection('ofrecimientos-team-b-junio-2024').add(ofrecimiento);
+    await db.collection('ofrecimientos-team-b-julio-2024').add(ofrecimiento);
     res.json({ message: 'Ofrecimiento creado exitosamente.' });
   } catch (error) {
     console.error(error);
@@ -42,7 +45,7 @@ app.post('/api/crear-ofrecimiento', async (req, res) => {
 // Ruta para obtener todos los ofrecimientos
 app.get('/api/obtener-ofrecimientos', async (req, res) => {
   try {
-    const ofrecimientosSnapshot = await db.collection('ofrecimientos-team-b-junio-2024').get();
+    const ofrecimientosSnapshot = await db.collection('ofrecimientos-team-b-julio-2024').get();
     const ofrecimientos = ofrecimientosSnapshot.docs.map(doc => doc.data());
     res.json(ofrecimientos);
   } catch (error) {
@@ -58,7 +61,7 @@ app.put('/api/actualizar-ofrecimiento/:id', async (req, res) => {
     // Ups parece que la línea de abajo esta comentada y es muy importante
     //const { nombre, descripcion, socialUrl } = req.body
 
-    const ofrecimientoRef = db.collection('ofrecimientos-team-b-junio-2024').where('id', '==', ofrecimientoId);
+    const ofrecimientoRef = db.collection('ofrecimientos-team-b-julio-2024').where('id', '==', ofrecimientoId);
     const ofrecimientoSnapshot = await ofrecimientoRef.get();
 
     if (ofrecimientoSnapshot.empty) {
@@ -79,7 +82,7 @@ app.put('/api/actualizar-ofrecimiento/:id', async (req, res) => {
 app.delete('/api/eliminar-ofrecimiento/:id', async (req, res) => {
   try {
     const ofrecimientoId = req.params.id
-    const ofrecimientoRef = db.collection('ofrecimientos-team-b-junio-2024').where('id', '==', ofrecimientoId);
+    const ofrecimientoRef = db.collection('ofrecimientos-team-b-julio-2024').where('id', '==', ofrecimientoId);
     const ofrecimientoSnapshot = await ofrecimientoRef.get();
 
     if (ofrecimientoSnapshot.empty) {
