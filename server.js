@@ -33,7 +33,7 @@ app.post("/api/crear-ofrecimiento", async (req, res) => {
       descripcion: req.body.descripcion,
       socialUrl: req.body.socialUrl,
     };
-    await db.collection("ofrecimientos-team-b-julio-II-2024").add(ofrecimiento);
+    await db.collection("ofrecimientos-team-b-feb-2025").add(ofrecimiento);
     res.json({ message: "Ofrecimiento creado exitosamente." });
   } catch (error) {
     console.error(error);
@@ -47,7 +47,7 @@ app.post("/api/crear-ofrecimiento", async (req, res) => {
 app.get("/api/obtener-ofrecimientos", async (req, res) => {
   try {
     const ofrecimientosSnapshot = await db
-      .collection("ofrecimientos-team-b-julio-II-2024")
+      .collection("ofrecimientos-team-b-feb-2025")
       .get();
     const ofrecimientos = ofrecimientosSnapshot.docs.map((doc) => doc.data());
     res.json(ofrecimientos);
@@ -65,10 +65,10 @@ app.put("/api/actualizar-ofrecimiento/:id", async (req, res) => {
     const ofrecimientoId = req.params.id;
     // Esto es un comentario en JavasCript
     // Ups parece que la línea de abajo esta comentada y es muy importante
-    const { nombre, descripcion, socialUrl } = req.body
+    // const { nombre, descripcion, socialUrl } = req.body
 
     const ofrecimientoRef = db
-      .collection("ofrecimientos-team-b-julio-II-2024")
+      .collection("ofrecimientos-team-b-feb-2025")
       .where("id", "==", ofrecimientoId);
     const ofrecimientoSnapshot = await ofrecimientoRef.get();
 
@@ -91,7 +91,7 @@ app.delete("/api/eliminar-ofrecimiento/:id", async (req, res) => {
   try {
     const ofrecimientoId = req.params.id;
     const ofrecimientoRef = db
-      .collection("ofrecimientos-team-b-julio-II-2024")
+      .collection("ofrecimientos-team-b-feb-2025")
       .where("id", "==", ofrecimientoId);
     const ofrecimientoSnapshot = await ofrecimientoRef.get();
 
