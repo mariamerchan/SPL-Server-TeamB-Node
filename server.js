@@ -65,7 +65,7 @@ app.put("/api/actualizar-ofrecimiento/:id", async (req, res) => {
     const ofrecimientoId = req.params.id;
     // Esto es un comentario en JavasCript
     // Ups parece que la línea de abajo esta comentada y es muy importante
-    //const { nombre, descripcion, socialUrl } = req.body
+    const { nombre, descripcion, socialUrl } = req.body
 
     const ofrecimientoRef = db
       .collection("ofrecimientos-team-b-feb-2025")
